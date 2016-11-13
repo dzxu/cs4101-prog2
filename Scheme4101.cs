@@ -9,6 +9,8 @@ using Environment = Tree.Environment;
 
 public class Scheme4101
 {
+    public static Environment global;
+
     public static int Main(string[] args)
     {
         // Create scanner that reads from standard input
@@ -58,7 +60,7 @@ public class Scheme4101
         Ident func = new Ident("b+");
         newEnv.define(func, new BuiltIn(func));
 
-        Environment env = new Environment(newEnv);
+        global = new Environment(newEnv);
 
         // Read-eval-print loop
 

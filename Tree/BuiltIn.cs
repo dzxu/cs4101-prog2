@@ -14,20 +14,25 @@
 // the function symbol.
 
 using System;
+using Parse;
 
 namespace Tree
 {
     public class BuiltIn : Node
     {
+        private Environment global; 
         private Node symbol;            // the Ident for the built-in function
 
-        public BuiltIn(Node s)		{ symbol = s; }
+        public BuiltIn(Node s)      { 
+            global = Scheme4101.global;
+            symbol = s; 
+        }
 
-        public Node getSymbol()		{ return symbol; }
+        public Node getSymbol()     { return symbol; }
 
         // TODO: The method isProcedure() should be defined in
         // class Node to return false.
-        public /* override */ bool isProcedure()	{ return true; }
+        public /* override */ bool isProcedure()    { return true; }
 
         public override void print(int n)
         {
@@ -145,26 +150,32 @@ namespace Tree
                 case "procedure?":
                     return BoolLit.getInstance(arg1.isProcedure());
 
-                // case "read":
+                case "read":
+                    Parser parser = new Parser(new Scanner(Console.In), new TreeBuilder);
+                    return (Node)parser.parseExp();
 
-                // case "write":
+                case "write":
+                    arg1.print(0);
+                    return new StringLit("");
 
-                // case "display":
+                case "display":
+                    return arg1;
 
                 case "newline":
                     return new StringLit("");
 
-                // case "eval":
-                //     return eval();
+                case "eval":
+                    return arg1.eval(arg2);
 
                 case "apply":
                     return arg1.apply(arg2);
 
-                // case "interaction-environment":
+                case "interaction-environment":
+                    return global;
 
                 default: return new StringLit("Error: BuiltIn.apply not yet implemented");
             }
-    	}
+        }
     }    
 }
 
