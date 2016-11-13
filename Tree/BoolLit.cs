@@ -7,7 +7,7 @@ namespace Tree
     public class BoolLit : Node
     {
         private bool boolVal;
-  
+
         private static BoolLit trueInstance =  new BoolLit(true);
         private static BoolLit falseInstance = new BoolLit(false);
 
@@ -15,7 +15,7 @@ namespace Tree
         {
             boolVal = b;
         }
-  
+
         public static BoolLit getInstance(bool val)
         {
             if (val)
@@ -32,6 +32,10 @@ namespace Tree
         public override bool isBool()
         {
             return true;
+        }
+        
+        public override Node eval(Environment env) {
+            return this;
         }
     }
 }

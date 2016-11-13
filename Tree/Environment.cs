@@ -41,13 +41,13 @@ namespace Tree
 
         private Node frame;     	// the innermost scope, an assoc list
 	private Environment env;	// the enclosing environment
-   
+
         public Environment()
         {
             frame = Nil.getInstance();
             env = null;
         }
-   
+
         public Environment(Environment e)
 	{
             frame = Nil.getInstance();
@@ -96,10 +96,10 @@ namespace Tree
             }
             else if (val == null)
                 // look up the identifier in the enclosing scope
-                return env.lookup(id);
+                  return env.lookup(id);
             else
                 // get the value out of the list we got from find()
-		return val.getCar();
+		              return val.getCar();
         }
 
 

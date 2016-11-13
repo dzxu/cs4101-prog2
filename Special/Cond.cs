@@ -9,10 +9,12 @@ namespace Tree
 	public Cond() { }
 
         public override void print(Node t, int n, bool p)
-        { 
+        {
             Printer.printCond(t, n, p);
+        }
+
+        public override Node eval(Node t, Environment env) {
+            return this;
         }
     }
 }
-
-

@@ -27,6 +27,9 @@ namespace Tree
         {
             return true;
         }
+
+        public override Node eval(Environment env) {
+            return env.lookup(this).eval(env);
+        }
     }
 }
-

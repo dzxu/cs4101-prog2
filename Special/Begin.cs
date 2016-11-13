@@ -12,6 +12,20 @@ namespace Tree
         {
             Printer.printBegin(t, n, p);
         }
+
+        public override Node eval(Node t, Environment env) {
+            if (t.getCdr().isNull() || t.getCdr == null) {
+                return Nil.getInstance;
+            }
+
+            Environment newEnv = new Environment(env);
+
+            while (!(t.getCdr().isNull()) || t.getCdr() != null) {
+              t.getCdr().getCar().eval(newEnv);
+              t = t.getCdr();
+            }
+
+            return (Node) t.getCar().eval(newEnv);
+        }
     }
 }
-

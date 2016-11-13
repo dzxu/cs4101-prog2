@@ -9,14 +9,14 @@ namespace Tree
         private Node car;
         private Node cdr;
         private Special form;
-    
+
         public Cons(Node a, Node d)
         {
             car = a;
             cdr = d;
             parseList();
         }
-    
+
         // parseList() `parses' special forms, constructs an appropriate
         // object of a subclass of Special, and stores a pointer to that
         // object in variable form.  It would be possible to fully parse
@@ -53,7 +53,7 @@ namespace Tree
                     form = new Regular();
             }
         }
- 
+
         public override void print(int n)
         {
             form.print(this, n, false);
@@ -88,6 +88,10 @@ namespace Tree
         public override bool isPair()
         {
             return true;
+        }
+
+        public override Node eval(Environment env) {
+            return form.eval(this, env);
         }
     }
 }

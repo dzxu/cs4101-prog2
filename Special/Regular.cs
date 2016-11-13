@@ -12,7 +12,19 @@ namespace Tree
         {
             Printer.printRegular(t, n, p);
         }
+
+        public override Node eval(Node node, Environment env) {
+
+            Node first = node.getCar();
+            Node args = node.getCdr();
+
+            while (first.isSymbol()) {
+            }
+
+            return this;
+        }
+
+
+
     }
 }
-
-

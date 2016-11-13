@@ -9,7 +9,7 @@ namespace Tree
         private static Nil instance = new Nil();
 
         private Nil() { }
-  
+
         public static Nil getInstance()
         {
             return instance;
@@ -27,6 +27,10 @@ namespace Tree
         public override bool isNull()
         {
             return true;
+        }
+
+        public override Node eval(Environment env) {
+            return this;
         }
     }
 }

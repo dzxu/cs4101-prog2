@@ -12,6 +12,8 @@ namespace Tree
         {
             Printer.printIf(t, n, p);
         }
+        public override Node eval(Node t, Environment env) {
+            return this;
+        }
     }
 }
-
