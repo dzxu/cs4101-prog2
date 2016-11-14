@@ -14,7 +14,12 @@ namespace Tree
         }
 
         public override Node eval(Node t, Environment env) {
-            return this;
+
+            Node id = t.getCdr().getCar();
+            Node val = t.getCdr().getCdr().getCar();
+
+            env.define(id, val);
+            return new StringLit("; set");
         }
     }
 }

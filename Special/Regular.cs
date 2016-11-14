@@ -13,18 +13,40 @@ namespace Tree
             Printer.printRegular(t, n, p);
         }
 
-        public override Node eval(Node node, Environment env) {
+        public override Node eval(Node t, Environment env) {
 
-            Node first = node.getCar();
-            Node args = node.getCdr();
+            Node first = t.getCar();
+            Node args = getArgVals(t.getCdr(), env);
 
             while (first.isSymbol()) {
+                first = env.lookup(first);
             }
 
-            return this;
+            if (first.isNull() || first == null) {
+                //error, return null
+                return Nil.getInstance();
+            }
+
+            if (first.isProcedure()) {
+                return first.apply(args);
+            }
+            else {
+              return first.eval(env).apply(args);
+            }
         }
 
+        public Node getArgVals(Node t, Environment env) {
+            if (t.isNull() || t == null) {
+                return Nil.getInstance();
+            }
+            else if (t.getCar().isSymbol()) {
+                return new Cons(env.lookup(t.getCar()), getArgVals(t.getCdr(), env));
+            }
+            else {
+                return new Cons(t.getCar(), getArgVals(t.getCdr(), env));
+            }
 
+        }
 
     }
 }

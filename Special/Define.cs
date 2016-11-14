@@ -22,7 +22,7 @@ namespace Tree
             }
             else { //function
 
-                Closure funcArgs = new Closure(new Cons(id.getCdr(), t.getCdr().getCdr());
+                Closure funcArgs = new Closure(new Cons(id.getCdr(), t.getCdr().getCdr()), env);
                 Node lambda = new Cons(new Ident("lambda"), funcArgs).eval(env);
                 env.define(id.getCar(), lambda);
             }

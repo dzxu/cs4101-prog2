@@ -14,8 +14,8 @@ namespace Tree
         }
 
         public override Node eval(Node t, Environment env) {
-            if (t.getCdr().isNull() || t.getCdr == null) {
-                return Nil.getInstance;
+            if (t.getCdr().isNull() || t.getCdr() == null) {
+                return Nil.getInstance();
             }
 
             Environment newEnv = new Environment(env);

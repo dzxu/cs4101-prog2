@@ -15,14 +15,14 @@ public class Scheme4101
     {
         // Create scanner that reads from standard input
         Scanner scanner = new Scanner(Console.In);
-        
+
         if (args.Length > 1 ||
             (args.Length == 1 && ! args[0].Equals("-d")))
         {
             Console.Error.WriteLine("Usage: mono SPP [-d]");
             return 1;
         }
-        
+
         // If command line option -d is provided, debug the scanner.
         if (args.Length == 1 && args[0].Equals("-d"))
         {
@@ -56,21 +56,65 @@ public class Scheme4101
         // TODO: Create and populate the built-in environment and
         // create the top-level environment
 
-        Environment newEnv = new Environment();
-        Ident func = new Ident("b+");
-        newEnv.define(func, new BuiltIn(func));
+        Environment builtInEnv = new Environment();
 
-        global = new Environment(newEnv);
+        Ident func = new Ident("symbol?");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("number?");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("b+");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("b-");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("b*");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("b/");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("b=");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("b<");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("car");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("cdr");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("cons");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("set-car!");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("set-cdr!");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("null?");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("pair?");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("eq?");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("procedure?");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("read");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("write");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("display");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("newline");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("eval");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("apply");
+        builtInEnv.define(func, new BuiltIn(func));
+        func = new Ident("interaction-environment");
+        builtInEnv.define(func, new BuiltIn(func));
 
         // Read-eval-print loop
 
         // TODO: print prompt and evaluate the expression
         root = (Node) parser.parseExp();
-        while (root != null) 
+        while (root != null)
         {
-            root.print(0);
-            
-
+            Console.WriteLine("root");
+            root.eval(builtInEnv).print(0);
             root = (Node) parser.parseExp();
         }
 
