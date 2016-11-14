@@ -27,7 +27,7 @@ namespace Tree
 
         // TODO: The method isProcedure() should be defined in
         // class Node to return false.
-        public /* override */ bool isProcedure()	{ return true; }
+        public override bool isProcedure()	{ return true; }
 
         public override void print(int n)
         {
@@ -45,8 +45,9 @@ namespace Tree
         // TODO: The method apply() should be defined in class Node
         // to report an error.  It should be overridden only in classes
         // BuiltIn and Closure.
-        public /* override */ Node apply (Node args)
+        public override Node apply (Node args)
         {
+            Console.WriteLine("BUILD THE WALL");
 
             if (args == null) {
                 return null;
@@ -61,14 +62,14 @@ namespace Tree
             if (arg2 == null || arg2.isNull()) {
                 arg2 = Nil.getInstance();
             }
-            else { 
+            else {
                 arg2 = arg2.getCar();
             }
 
             String symbolName = symbol.getName();
 
             switch (symbolName) {
-                case "symbol?": 
+                case "symbol?":
                     return BoolLit.getInstance(arg1.isSymbol());
 
                 case "b+":
@@ -77,25 +78,25 @@ namespace Tree
                         return new IntLit(arg1.getVal() + arg2.getVal());
                     }
                     else
-                        return new StringLit("Error: Improper input");    
+                        return new StringLit("Error: Improper input");
 
                 case "b-":
                     if (arg1.isNumber() && arg2.isNumber())
                         return new IntLit(arg1.getVal() - arg2.getVal());
                     else
-                        return new StringLit("Error: Improper input");    
+                        return new StringLit("Error: Improper input");
 
                 case "b*":
                     if (arg1.isNumber() && arg2.isNumber())
                         return new IntLit(arg1.getVal() * arg2.getVal());
                     else
-                        return new StringLit("Error: Improper input");    
+                        return new StringLit("Error: Improper input");
 
                 case "b/":
                     if (arg1.isNumber() && arg2.isNumber())
                         return new IntLit(arg1.getVal() / arg2.getVal());
                     else
-                        return new StringLit("Error: Improper input");   
+                        return new StringLit("Error: Improper input");
 
                 case "b=":
                     if (arg1.isNumber() && arg2.isNumber())
@@ -111,13 +112,13 @@ namespace Tree
 
 
                 case "car":
-                    if (arg1.isNull()) 
+                    if (arg1.isNull())
                         return arg1;
                     else
                         return arg1.getCar();
 
                 case "cdr":
-                    if (arg1.isNull()) 
+                    if (arg1.isNull())
                         return arg1;
                     else
                         return arg1.getCdr();
@@ -146,16 +147,16 @@ namespace Tree
                     return BoolLit.getInstance(arg1.isProcedure());
 
                 // case "read":
-
+                //
                 // case "write":
-
+                //
                 // case "display":
 
                 case "newline":
                     return new StringLit("");
 
-                // case "eval":
-                //     return eval();
+                case "eval":
+                    return arg1.eval((Environment) arg2);
 
                 case "apply":
                     return arg1.apply(arg2);
@@ -165,6 +166,5 @@ namespace Tree
                 default: return new StringLit("Error: BuiltIn.apply not yet implemented");
             }
     	}
-    }    
+    }
 }
-

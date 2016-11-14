@@ -13,7 +13,7 @@ namespace Tree
             intVal = i;
         }
 
-        public int getVal(){
+        public override int getVal(){
             return intVal;
         }
 

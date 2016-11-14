@@ -26,7 +26,7 @@ namespace Tree
 
         // TODO: The method isProcedure() should be defined in
         // class Node to return false.
-        public /* override */ bool isProcedure()	{ return true; }
+        public override bool isProcedure()	{ return true; }
 
         public override void print(int n) {
             // there got to be a more efficient way to print n spaces
@@ -43,9 +43,18 @@ namespace Tree
         // TODO: The method apply() should be defined in class Node
         // to report an error.  It should be overridden only in classes
         // BuiltIn and Closure.
-        public /* override */ Node apply (Node args)
+        public override Node apply (Node args)
         {
-            return new StringLit("Error: Closure.apply not yet implemented");
+
+            Node varNode = fun.getCdr().getCar();
+
+            while (!(varNode.isNull()) || varNode != null) {
+                env.define(varNode.getCar(), args.getCar());
+                varNode = varNode.getCdr();
+                args = args.getCdr();
+            }
+
+            return fun.getCdr().getCar();
         }
-    }    
+    }
 }

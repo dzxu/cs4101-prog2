@@ -14,7 +14,7 @@ namespace Tree
         }
 
         public override Node eval(Node t, Environment env) {
-            return this;
+            return new StringLit("; not implemented yet");
         }
     }
 }

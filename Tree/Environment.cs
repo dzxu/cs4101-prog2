@@ -112,7 +112,7 @@ namespace Tree
         public void assign(Node id, Node val)
         {
             Node n = find(id, this.frame);
-            if(n!= null)
+            if(n != null || !(n.isNull()))
                 n.getCdr().setCar(val);
             else
                 Console.WriteLine("no such variable exists");
